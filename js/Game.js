@@ -102,26 +102,37 @@ class Game{
             if (keyCode===RIGHT_ARROW){
                 player.x=player.x+10;
             }
+            
+    var score1 = database.ref("players/player1/score");
+    var score2 = database.ref("players/player2/score");
+    fill(rgb(208, 255, 0));
+    text("Player 1's Score:"+score1,20,20);
+    text("Player 2's Score:"+score2,20,40);
             for (var i = 0; i < fruitGroup.length; i++) {
                 if (fruitGroup.get(i).isTouching(players)) {
                     fruitGroup.get(i).destroy();
                     player.score=player.score+1;
-                    player.update();                    
+                    player.update();
                 }
             }
         }
 
 
-        if (player1.score===50) {
-            
+        if (player1.score===50||player2.score===50) {
+            gameState=2;
         }
-
-
     }
 
     end(){
-
-
-       
+        textSize(20)
+        text("GAME OVER",200,200);
+        if (player.score===50) {
+            textSize(15)
+            text("YOU WIN",200,300);
+        }
+        if (player.score!==50) {
+            textSize(15)
+            text("YOU LOSE",200,300);
+        }
     }
 }
